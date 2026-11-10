@@ -4,10 +4,8 @@ A scalable backend system designed to power a multi-vendor e-commerce platform, 
 
 This project goes beyond a traditional e-commerce application by focusing on real-world business logic, secure authentication, role-based access control, data integrity, and scalable backend architecture.
 
-> **Project Status:** Planning & Development
->
-> **Project Type:** Backend API / Multi-Vendor E-Commerce
->
+> **Project Status:** Planning & Development  
+> **Project Type:** Backend API / Multi-Vendor E-Commerce  
 > **Primary Goal:** Build a secure, scalable, and maintainable backend system following modern software engineering best practices.
 
 ---
@@ -19,15 +17,9 @@ This project goes beyond a traditional e-commerce application by focusing on rea
 - [User Roles & Permissions](#user-roles--permissions)
 - [Technology Stack](#technology-stack)
 - [Project Architecture](#project-architecture)
-- [Order Lifecycle](#order-lifecycle)
-- [Payment Lifecycle](#payment-lifecycle)
-- [API Structure](#api-structure)
-- [Security & Best Practices](#security--best-practices)
 - [Installation & Setup](#installation--setup)
 - [Environment Variables](#environment-variables)
 - [Development Roadmap](#development-roadmap)
-- [Testing & Quality Assurance](#testing--quality-assurance)
-- [Contributing](#contributing)
 - [License](#license)
 
 ---
@@ -57,177 +49,76 @@ Unlike a basic CRUD application, this project focuses on implementing complex bu
 ## Core Features
 
 ### 1. Authentication & Security
-
-A comprehensive authentication system designed to protect user accounts and manage secure sessions.
-
-- User registration and login.
-- Email verification.
-- Secure password hashing.
-- JWT-based authentication.
-- Access Token and Refresh Token management.
-- Secure session handling.
-- Password recovery using email-based OTP verification.
+- User registration and login with email verification.
+- Password hashing using **bcryptjs**.
+- Secure **JWT-based authentication** (Access Token & Refresh Token management).
 - Refresh Token rotation and session invalidation.
-- Role-Based Access Control (RBAC).
-- Protected routes and resource-level authorization.
+- Password recovery via email OTP.
+- **Role-Based Access Control (RBAC)** across protected routes.
 
 ### 2. Product & Inventory Management
-
-A dynamic product management system supporting multiple vendors and hierarchical categories.
-
-- Create, update, delete, and manage products.
-- Product image uploading, processing, and storage.
-- Hierarchical categories and subcategories.
-- Vendor-specific product ownership.
-- Dynamic inventory management.
-- Real-time stock availability tracking.
-- Automatic inventory updates during order processing.
-- Prevention of overselling.
-- Inventory movement tracking and audit history.
+- CRUD operations for products with vendor-specific ownership.
+- Image uploading, optimization, and cloud storage integration.
+- Dynamic inventory management with real-time stock tracking.
+- Automatic inventory locks/updates during order processing to prevent overselling.
 
 ### 3. Shopping Cart & Order Processing
-
-A complete shopping cart and order management workflow.
-
-- User-specific shopping carts.
-- Add, update, and remove cart items.
-- Server-side price validation.
-- Automatic calculation of totals, discounts, and applicable fees.
-- Order creation and management.
-- Multi-vendor order support.
-- Order status tracking.
-- Inventory validation before order confirmation.
-- Order cancellation handling.
+- User-specific shopping carts with server-side price validation.
+- Automated totals, discounts, and fee calculations.
+- Multi-vendor order creation and status tracking lifecycle.
+- Atomic stock validation prior to order confirmation.
 
 ### 4. Admin & Vendor Dashboards
+- **Admin Dashboard:** Platform-wide metrics, user/vendor oversight, overall sales analytics, and category management.
+- **Vendor Dashboard:** Store-specific analytics, revenue tracking, low-stock alerts, and best-selling products.
 
-Dedicated dashboard APIs providing business insights and operational statistics.
-
-#### Admin Dashboard
-
-- Total users and vendors.
-- Total orders and order status statistics.
-- Sales analytics and revenue summaries.
-- Product and category management.
-- Platform-wide operational insights.
-
-#### Vendor Dashboard
-
-- Vendor-specific sales statistics.
-- Total orders associated with the vendor.
-- Best-selling products.
-- Low-stock product alerts.
-- Store performance summaries.
-- Date-based analytics and filtering.
-
-### 5. Advanced Querying & Data Management
-
-A reusable querying system designed to handle large datasets efficiently.
-
-- Pagination.
-- Filtering.
-- Sorting.
-- Search functionality.
-- Query parameter validation.
-- Efficient database queries.
-- Role-aware data filtering.
-- Consistent API response structures.
-
-### 6. Centralized Error Handling & API Protection
-
-A structured middleware-based approach to error handling and API security.
-
+### 5. Advanced Querying & API Security
+- Built-in pagination, filtering, search, and sorting middleware for large datasets.
 - Centralized error-handling middleware.
-- Consistent HTTP status codes.
-- Standardized error responses.
-- Request validation using Zod or Joi.
-- Rate limiting.
-- HTTP security headers using Helmet.
-- NoSQL injection protection through data sanitization.
-- Configurable CORS policies.
-- Secure logging and error reporting.
+- Security enforcement via **Helmet**, **CORS**, and **Rate Limiting**.
+- Request input sanitization against NoSQL injection.
 
 ---
 
 ## User Roles & Permissions
 
-The system uses Role-Based Access Control (RBAC) to manage access to resources and operations.
-
 | Role | Responsibilities |
 |---|---|
-| Customer | Browse products, manage carts, place orders, and track purchases |
-| Vendor | Manage stores, products, inventory, and vendor-specific orders |
-| Admin | Manage users, vendors, categories, orders, and platform operations |
-| Delivery | Access assigned shipments and update delivery statuses |
-
-### Authorization Principles
-
-- Users can only access resources they are authorized to manage.
-- Vendors cannot modify products or orders belonging to other vendors.
-- Delivery personnel can only access shipments assigned to them.
-- Administrative operations require appropriate privileges.
-- Authorization is enforced on the backend, not only in the frontend.
+| **Customer** | Browse products, manage carts, place orders, and track purchases. |
+| **Vendor** | Manage store profiles, owned products, inventory, and vendor orders. |
+| **Admin** | Full system oversight: users, vendors, categories, orders, and platform metrics. |
+| **Delivery** | View assigned shipments and update delivery/fulfillment statuses. |
 
 ---
 
 ## Technology Stack
 
-The following technologies are proposed for the initial implementation.
-
 | Category | Technology |
 |---|---|
-| Runtime | Node.js |
-| Backend Framework | Express.js |
-| Database | MongoDB |
-| ODM | Mongoose |
-| Authentication | JSON Web Tokens (JWT) |
-| Validation | Zod or Joi |
-| Security | Helmet, express-rate-limit |
-| Image Storage | Cloudinary or S3-compatible storage |
-| Email Service | SMTP or a dedicated email provider |
-| API Documentation | Swagger / OpenAPI |
-| Testing | Jest or Vitest |
-| API Testing | Supertest |
-| Version Control | Git & GitHub |
-
-> The technology stack may evolve during development. The listed technologies represent the proposed architecture rather than a claim that every feature has already been implemented.
+| **Runtime Environment** | Node.js |
+| **Framework** | Express.js |
+| **Database & ODM** | MongoDB, Mongoose |
+| **Authentication** | JSON Web Tokens (JWT), Bcrypt |
+| **Validation & Security** | Zod / Express-Validator, Helmet, CORS, Rate Limit |
+| **Logging & Utilities** | Morgan, Dotenv |
+| **Version Control** | Git & GitHub |
 
 ---
 
 ## Project Architecture
 
-The project follows a modular architecture designed to separate responsibilities and improve maintainability.
-
-### Proposed Directory Structure
-
 ```text
-src/
-├── config/
-│   ├── database.js
-│   └── environment.js
-│
-├── modules/
-│   ├── auth/
-│   ├── users/
-│   ├── vendors/
-│   ├── products/
-│   ├── categories/
-│   ├── inventory/
-│   ├── cart/
-│   ├── orders/
-│   ├── payments/
-│   ├── deliveries/
-│   └── dashboard/
-│
-├── middlewares/
-│   ├── authenticate.js
-│   ├── authorize.js
-│   ├── validate.js
-│   ├── errorHandler.js
-│   └── notFound.js
-│
-├── services/
-├── utils/
-│
-├── app.js
-└── server.js
+nexus-cart-backend/
+├── src/
+│   ├── config/          # Database connection & env configurations
+│   ├── controllers/     # Request handlers and business logic wrappers
+│   ├── models/          # Mongoose schemas and data models
+│   ├── routes/          # API route definitions
+│   ├── middlewares/     # Auth, error handling, rate limiting, and validation
+│   ├── utils/           # Helper functions, logger, and custom error classes
+│   ├── app.js           # Express app setup and middleware configuration
+│   └── server.js        # Server entry point and database connection logic
+├── .env.example         # Template for environment variables
+├── .gitignore           # Git ignore rules
+├── package.json         # Dependencies and scripts
+└── README.md            # Project documentation
