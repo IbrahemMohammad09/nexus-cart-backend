@@ -3,6 +3,8 @@ const cors = require("cors");
 const helmet = require("helmet");
 const morgan = require("morgan");
 
+const authRoutes = require('./routes/auth.routes');
+
 const app = express();
 
 //Security & Utility Middlewares
@@ -14,6 +16,9 @@ app.use(express.json());
 if (process.env.NODE_ENV === "development") {
   app.use(morgan("dev"));
 }
+
+//Routes
+app.use("/api/auth", authRoutes);
 
 //Test Root Route
 app.get("/", (req, res) => {

@@ -1,9 +1,5 @@
 const User = require("../models/user.model");
 
-// @desc    Register a new user
-// @route   POST /api/auth/register
-// @access  Public
-
 const register = async (req, res) => {
   try {
     const { name, email, password, role, language } = req.body;
